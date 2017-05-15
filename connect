@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# This script allows the user to connect
+# to a wireless network using nmcli
+
+echo "SSID:"
+read ssid
+echo "Password:"
+read -s password
+
+echo "Connecting to $ssid..."
+
+nmcli dev wifi connect $ssid password $password
