@@ -3,11 +3,16 @@
 # This script allows the user to connect
 # to a wireless network using nmcli
 
-echo "SSID:"
-read ssid
-echo "Password:"
-read -s password
+# Print available connections
+nmcli dev wifi
 
+echo
+echo "Enter SSID:"
+read ssid
+echo "Enter password:"
+read -s password
+echo
 echo "Connecting to $ssid..."
 
-nmcli dev wifi connect $ssid password $password
+# Connect to chosen network
+nmcli dev wifi connect "$ssid" password "$password"
