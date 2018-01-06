@@ -13,9 +13,8 @@ set $mod Mod4
 
 # startup applications
 exec chromium
-exec /home/filardo/Desktop/Programs/Telegram/Telegram
+# exec /home/filardo/Desktop/Programs/Telegram/Telegram
 exec gnome-terminal
-exec thunar
 exec compton
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -41,6 +40,7 @@ floating_modifier $mod
 # bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec gnome-terminal
 
+
 # enable gnome-terminal  to float
 for_window [class="Gnome-terminal"] floating enable
 
@@ -48,7 +48,7 @@ for_window [class="Gnome-terminal"] floating enable
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-#bindsym $mod+d exec dmenu_run
+# bindsym $mod+d exec dmenu_run
 # instead, start rofi
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
 
@@ -58,10 +58,10 @@ bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opaci
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+ntilde focus right
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+# bindsym $mod+l focus up
+# bindsym $mod+ntilde focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -70,10 +70,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+ntilde move right
+# bindsym $mod+Shift+j move left
+# bindsym $mod+Shift+k move down
+# bindsym $mod+Shift+l move up
+# bindsym $mod+Shift+ntilde move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -110,13 +110,15 @@ bindsym $mod+a focus parent
 # variables declaration
 
 set $workspace1 "&#xf120; Terminals"
-set $workspace2 "&#xf268; Browsers "
+set $workspace2 "&#xf268; Chromium"
 set $workspace3 "&#xf121; Code "
-set $workspace9 "&#xf2c6; Telegram"
-set $workspace0 "&#xf001; Music"
 set $workspace4 "&#xf115; Files"
-set $workspace5 "&#xf0f4; NetBeans"
-
+set $workspace5 "&#xf0f4; IDEs"
+set $workspace6 "&#xf1b2; VMs"
+set $workspace7 "&#xf016; Documents"
+set $workspace8 "&#xf269; Firefox"
+set $workspace9 "&#xf2c6; Telegram"
+set $workspace0 "&#xf1bc; Music"
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -124,8 +126,8 @@ bindsym $mod+2 workspace $workspace2
 bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace $workspace4
 bindsym $mod+5 workspace $workspace5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
 bindsym $mod+8 workspace $workspace8
 bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace0
@@ -136,8 +138,8 @@ bindsym $mod+Shift+2 move container to workspace $workspace2
 bindsym $mod+Shift+3 move container to workspace $workspace3
 bindsym $mod+Shift+4 move container to workspace $workspace4
 bindsym $mod+Shift+5 move container to workspace $workspace5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
 bindsym $mod+Shift+8 move container to workspace $workspace8
 bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
@@ -149,6 +151,12 @@ assign [class="kate"] $workspace3
 assign [class="Atom"] $workspace3
 assign [class="Thunar"] $workspace4
 assign [class="NetBeans IDE 8.2"] $workspace5
+assign [class="jetbrains-idea"] $workspace5
+assign [class="VirtualBox"] $workspace6
+assign [class="okular"] $workspace7
+assign [class="Gthumb"] $workspace7
+assign [class="calibre"] $workspace7
+assign [class="Firefox"] $workspace8
 assign [class="TelegramDesktop"] $workspace9
 
 # for some reason spotify doesn't follow the same rule
@@ -248,19 +256,19 @@ bindsym $mod+shift+x exec i3lock -i ~/.lockBackground.png 2> /home/filardo/error
 # lock with fake windows desktop
 bindsym $mod+shift+w exec i3lock -i ~/.windowsBackground.png -p win 2> /home/filardo/errorLog.txt
 ##  lock screen after 5 minutes of inactivity
-exec xautolock -time 5 -locker "i3lock -i /home/filardo/.lockBackground.png 2> errorLog.txt" &
+# exec xautolock -time 5 -locker "i3lock -i /home/filardo/.lockBackground.png 2> errorLog.txt" &
 
 
 # open Telegram Desktop
 bindsym $mod+t exec /home/filardo/Desktop/Programs/Telegram/Telegram
 # enable Telegram to float
-for_window [class="TelegramDesktop"] floating enable
+# for_window [class="TelegramDesktop"] floating enable
 
 # open File Manager
 bindsym $mod+shift+f exec thunar
 
-# open chromium
-bindsym $mod+c  exec chromium
+# display calendar
+bindsym $mod+c  exec zenity --calendar
 
 # open NetworkManager on startup
 exec --no-startup-id nm-applet
@@ -276,7 +284,13 @@ bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
 # activates click on tap
-exec --no-startup-id synclient TapButton1=1 
+exec --no-startup-id synclient TapButton1=1
+
+# automount inserted drives
+exec --no-startup-id devmon
+
+# clipboard daemon
+exec --no-startup-id anamnesis --star
 
 # PRINT SCREENSHOTS
 bindsym Print exec scrot -e 'mv $f ~/Pictures/Screenshots'
