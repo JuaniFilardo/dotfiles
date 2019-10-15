@@ -9,22 +9,18 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 
 # startup applications
-exec chromium
-# exec /home/filardo/Desktop/Programs/Telegram/Telegram
-exec gnome-terminal
+# exec chromium
 exec compton
+exec termite
+exec syndaemon -i 0.4 -t -K -R -d 
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-# font pango:monospace 8
-font pango: System San Francisco Display 8
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+# font pango:monospace 15
+font pango: Dank Mono 14
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -38,19 +34,20 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec termite
 
 
-# enable gnome-terminal  to float
-for_window [class="Gnome-terminal"] floating enable
+# allow terminal  to float
+# for_window [class="Termite"] floating enable
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
-# instead, start rofi
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+# instead, start rofi 
+bindsym $mod+d exec rofi -show run -lines 3 -eh 1 -width 1440 -height 2160 -opacity "20" -bw 0 -font "Dank Mono 21" # -bc "#333333" -bg "#EEEEEE" -fg "#FFFFFF" #-hlbg "$bg-color" -hlfg "#9575cd" -font "Dank Mono 18"
+
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -91,8 +88,8 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -112,13 +109,13 @@ bindsym $mod+a focus parent
 set $workspace1 "&#xf120; Terminals"
 set $workspace2 "&#xf268; Chromium"
 set $workspace3 "&#xf121; Code "
-set $workspace4 "&#xf115; Files"
+set $workspace4 "&#xf187; Files"
 set $workspace5 "&#xf0f4; IDEs"
 set $workspace6 "&#xf1b2; VMs"
-set $workspace7 "&#xf016; Documents"
+set $workspace7 "&#xf02d; Documents"
 set $workspace8 "&#xf269; Firefox"
 set $workspace9 "&#xf2c6; Telegram"
-set $workspace0 "&#xf1bc; Music"
+set $workspace0 "&#xf001; Music"
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -145,13 +142,10 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
 
 # assign specific programs to a specific workspace
-assign [class="Gnome-terminal"] $workspace1
+assign [class="Termite"] $workspace1
 assign [class="Chromium"] $workspace2
-assign [class="kate"] $workspace3
-assign [class="Atom"] $workspace3
+assign [class="code"] $workspace3
 assign [class="Thunar"] $workspace4
-assign [class="NetBeans IDE 8.2"] $workspace5
-assign [class="jetbrains-idea"] $workspace5
 assign [class="VirtualBox"] $workspace6
 assign [class="okular"] $workspace7
 assign [class="Gthumb"] $workspace7
@@ -159,15 +153,16 @@ assign [class="calibre"] $workspace7
 assign [class="Firefox"] $workspace8
 assign [class="TelegramDesktop"] $workspace9
 
+
 # for some reason spotify doesn't follow the same rule
 for_window [class="Spotify"] move to workspace $workspace0
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c relolcad
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yup!' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -224,43 +219,26 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #i
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-# Alsa Audio controls
-# increase by 5%
-#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
-# decrease by 5%
-#bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
-# mute/unmute
-#bindsym XF86AudioMuteVolume exec --no-startup-id amixer -q sset Master toggle   
-
-# ain't needed actually
 # Sreen brightness controls
-#bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-#bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
 # Media player controls
-## actually, in my laptop it's the same button so I'll use a script
-bindsym XF86AudioPlay exec /home/filardo/.musicPlayPause.sh
-#bindsym XF86AudioPause exec /home/filardo/.musicPlayPause.sh
-
-## My laptop doesn't have these
-#bindsym XF86AudioNext exec playerctl next
-#bindsym XF86AudioPrev exec playerctl previous
-## So I'll use these
+bindsym $mod+shift+m exec playerctl play
+bindsym $mod+m exec playerctl pause
 bindsym $mod+n exec playerctl next
 bindsym $mod+p exec playerctl previous
 
 
 # lock screen
 # bindsym $mod+shift+x exec i3lock -c 000000 # black background
-bindsym $mod+shift+x exec i3lock -i ~/.lockBackground.png 2> /home/filardo/errorLog.txt
-# lock with fake windows desktop
-bindsym $mod+shift+w exec i3lock -i ~/.windowsBackground.png -p win 2> /home/filardo/errorLog.txt
+bindsym $mod+shift+x exec i3lock -i ~/.lockBackground 2> /home/jfilardo/errorLog.txt
 ##  lock screen after 5 minutes of inactivity
-# exec xautolock -time 5 -locker "i3lock -i /home/filardo/.lockBackground.png 2> errorLog.txt" &
+exec xautolock -time 5 -locker "i3lock -i /home/jfilardo/.lockBackground 2> errorLog.txt" &
 
 
 # open Telegram Desktop
-bindsym $mod+t exec /home/filardo/Desktop/Programs/Telegram/Telegram
+bindsym $mod+t exec telegram-desktop
 # enable Telegram to float
 # for_window [class="TelegramDesktop"] floating enable
 
@@ -277,7 +255,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xset -b
 
 # sets wallpaper (first download feh)
-exec_always feh --bg-scale /home/filardo/.wallpaper
+exec_always feh --bg-scale /home/jfilardo/.wallpaper
 
 # switch workspaces
 bindsym $mod+Tab workspace next
@@ -289,12 +267,9 @@ exec --no-startup-id synclient TapButton1=1
 # automount inserted drives
 exec --no-startup-id devmon
 
-# clipboard daemon
-exec --no-startup-id anamnesis --star
-
 # PRINT SCREENSHOTS
 bindsym Print exec scrot -e 'mv $f ~/Pictures/Screenshots'
+bindsym $mod+s exec sleep 0.5 && scrot --select -e 'mv $f ~/Pictures/Screenshots'
 
-# Keep numlock on
-exec_always --no-startup-id numlockx on 
+
 
